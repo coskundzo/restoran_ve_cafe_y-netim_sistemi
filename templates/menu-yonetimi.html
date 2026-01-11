@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block page_title %}Menü Yönetimi{% endblock %}
+
+{% block page_content %}
+<div class="management-header">
+    <button class="btn btn-primary" id="add-menu-item-btn">
+        <i class="ph ph-plus"></i> Yeni Ürün Ekle
+    </button>
+    <button class="btn btn-secondary" id="add-category-btn" style="margin-left: 10px;">
+        <i class="ph ph-list-plus"></i> Yeni Kategori Ekle
+    </button>
+</div>
+
+<div class="menu-management-grid" id="menu-content"></div>
+{% endblock %}

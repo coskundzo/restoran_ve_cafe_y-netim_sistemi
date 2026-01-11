@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Giriş - Adisyo POS{% endblock %}
+
+{% block content %}
+<!-- Login Modal -->
+<div id="login-modal" class="modal-overlay active">
+    <div class="modal login-modal">
+        <div class="login-header">
+            <i class="ph-fill ph-check-square-offset"></i>
+            <h1>Adisyo</h1>
+            <p>Restoran POS Sistemi</p>
+        </div>
+        <form id="login-form" class="login-form">
+            <div class="form-group">
+                <label for="username">Kullanıcı Adı</label>
+                <input type="text" id="username" name="username" required placeholder="admin">
+            </div>
+            <div class="form-group">
+                <label for="password">Şifre</label>
+                <input type="password" id="password" name="password" required placeholder="••••••">
+            </div>
+            <button type="submit" class="btn btn-primary btn-large">
+                <i class="ph ph-sign-in"></i>
+                Giriş Yap
+            </button>
+            <p class="login-hint">Demo: kullanıcı adı: şifre</p>
+        </form>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast">
+    <i class="ph ph-check-circle"></i>
+    <span id="toast-message">İşlem başarılı</span>
+</div>
+{% endblock %}

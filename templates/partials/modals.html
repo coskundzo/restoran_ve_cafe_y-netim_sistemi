@@ -1,0 +1,352 @@
+<!-- Order Drawer -->
+<div id="order-drawer" class="order-drawer">
+    <div class="drawer-header">
+        <div>
+            <h3>Masa <span id="drawer-table-name">1</span></h3>
+            <span class="drawer-time" id="drawer-time">Açılış: --:--</span>
+        </div>
+        <button id="close-drawer" class="icon-btn"><i class="ph ph-x"></i></button>
+    </div>
+
+    <div class="drawer-body">
+        <div class="menu-categories" id="menu-categories"></div>
+        <div class="menu-items" id="menu-items-grid"></div>
+    </div>
+
+    <div class="cart-section">
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-footer">
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Ara Toplam</span>
+                    <span id="cart-subtotal">₺0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>KDV (%10)</span>
+                    <span id="cart-tax">₺0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Toplam</span>
+                    <span id="cart-total">₺0.00</span>
+                </div>
+            </div>
+            <div class="cart-actions">
+                <button class="btn btn-secondary" id="add-note-btn">
+                    <i class="ph ph-note"></i> Not Ekle
+                </button>
+                <button class="btn btn-warning" id="print-order-btn">
+                    <i class="ph ph-printer"></i> Mutfağa Gönder
+                </button>
+                <button class="btn btn-primary btn-large" id="payment-btn">
+                    <i class="ph ph-credit-card"></i> Hesap Al
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Modal -->
+<div id="payment-modal" class="modal-overlay">
+    <div class="modal payment-modal">
+        <div class="modal-header">
+            <h3>Hesap Al - <span id="payment-table-name">Masa 1</span></h3>
+            <button class="icon-btn close-modal"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="payment-summary">
+                <div class="summary-row">
+                    <span>Ara Toplam</span>
+                    <span id="payment-subtotal">₺0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>KDV</span>
+                    <span id="payment-tax">₺0.00</span>
+                </div>
+                <div class="summary-row discount" id="discount-row" style="display: none;">
+                    <span>İndirim</span>
+                    <span id="payment-discount">-₺0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Ödenecek Tutar</span>
+                    <span id="payment-total">₺0.00</span>
+                </div>
+            </div>
+
+            <div class="discount-section">
+                <h4>İndirim / İkram</h4>
+                <div class="discount-options">
+                    <button class="discount-btn" data-type="none">İndirim Yok</button>
+                    <button class="discount-btn" data-type="percent" data-value="10">%10</button>
+                    <button class="discount-btn" data-type="percent" data-value="15">%15</button>
+                    <button class="discount-btn" data-type="percent" data-value="20">%20</button>
+                    <button class="discount-btn" data-type="treat">İkram</button>
+                </div>
+                <div class="custom-discount">
+                    <input type="number" id="custom-discount" placeholder="Tutar (₺)" min="0">
+                    <button class="btn btn-secondary" id="apply-custom-discount">Uygula</button>
+                </div>
+            </div>
+
+            <div class="payment-method-section">
+                <h4>Ödeme Yöntemi</h4>
+                <div class="payment-methods">
+                    <button class="payment-method-btn active" data-method="cash">
+                        <i class="ph ph-money"></i>
+                        <span>Nakit</span>
+                    </button>
+                    <button class="payment-method-btn" data-method="card">
+                        <i class="ph ph-credit-card"></i>
+                        <span>Kredi Kartı</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary close-modal">İptal</button>
+            <button class="btn btn-success" id="confirm-payment-btn">
+                <i class="ph ph-check"></i> Ödemeyi Onayla
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Note Modal -->
+<div id="note-modal" class="modal-overlay">
+    <div class="modal note-modal">
+        <div class="modal-header">
+            <h3>Sipariş Notu</h3>
+            <button class="icon-btn close-modal"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="note-item-select">Ürün seçin ve not ekleyin:</label>
+                <select id="note-item-select" class="form-select">
+                    <option value="">-- Ürün Seçin --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="item-note-text">Not:</label>
+                <textarea id="item-note-text" rows="3" placeholder="Örn: Az tuzlu, yanında pilav olmasın..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary close-modal">İptal</button>
+            <button class="btn btn-primary" id="save-note-btn">
+                <i class="ph ph-check"></i> Kaydet
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Menu Item Modal -->
+<div id="menu-item-modal" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 id="menu-item-modal-title">Yeni Ürün Ekle</h3>
+            <button class="icon-btn close-modal"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="menu-item-form">
+                <input type="hidden" id="menu-item-id">
+                <div class="form-group">
+                    <label for="menu-item-name">Ürün Adı</label>
+                    <input type="text" id="menu-item-name" required placeholder="Örn: Adana Kebap">
+                </div>
+                <div class="form-group">
+                    <label for="menu-item-price">Fiyat (₺)</label>
+                    <input type="number" id="menu-item-price" required min="0" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label for="menu-item-category">Kategori</label>
+                    <select id="menu-item-category" class="form-select" required>
+                        <option value="">-- Seçin --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="menu-item-station">Reyon (Verilecek Yer)</label>
+                    <select id="menu-item-station" class="form-select">
+                        <option value="">-- Yazıcı Yok --</option>
+                    </select>
+                    <small>Sipariş fişinin hangi yazıcıdan çıkacağını belirler.</small>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="menu-item-available" checked>
+                    <label for="menu-item-available">Satışta</label>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary close-modal">İptal</button>
+            <button class="btn btn-primary" id="save-menu-item-btn">
+                <i class="ph ph-check"></i> Kaydet
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- User Modal -->
+<div id="user-modal" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Yeni Kullanıcı</h3>
+            <button class="icon-btn close-modal"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="user-form">
+                <input type="hidden" id="user-id">
+                <div class="form-group">
+                    <label for="user-fullname">Ad Soyad</label>
+                    <input type="text" id="user-fullname" required placeholder="Ahmet Yılmaz">
+                </div>
+                <div class="form-group">
+                    <label for="user-username">Kullanıcı Adı</label>
+                    <input type="text" id="user-username" required placeholder="ahmet">
+                </div>
+                <div class="form-group">
+                    <label for="user-password">Şifre</label>
+                    <input type="password" id="user-password" placeholder="••••••">
+                </div>
+                <div class="form-group">
+                    <label for="user-role-select">Rol</label>
+                    <select id="user-role-select" class="form-select" required>
+                        <option value="waiter">Garson</option>
+                        <option value="cashier">Kasiyer</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary close-modal">İptal</button>
+            <button class="btn btn-primary" id="save-user-btn">
+                <i class="ph ph-check"></i> Kaydet
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Table Modal -->
+<div id="table-modal" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Yeni Masa Ekle</h3>
+            <button class="icon-btn close-modal"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="table-form">
+                <div class="form-group">
+                    <label for="table-name">Masa Adı</label>
+                    <input type="text" id="table-name" required placeholder="Örn: Masa 15">
+                </div>
+                <div class="form-group">
+                    <label for="table-capacity">Kapasite</label>
+                    <input type="number" id="table-capacity" value="4" min="1">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary close-modal">İptal</button>
+            <button class="btn btn-primary" id="save-table-btn">
+                <i class="ph ph-check"></i> Kaydet
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Category Modal -->
+<div id="category-modal" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Yeni Kategori Ekle</h3>
+            <button class="icon-btn close-modal"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="category-form">
+                <div class="form-group">
+                    <label for="category-name">Kategori Adı</label>
+                    <input type="text" id="category-name" required placeholder="Örn: Burgerler">
+                </div>
+                <div class="form-group">
+                    <label for="category-key">Anahtar (Tekil)</label>
+                    <input type="text" id="category-key" required placeholder="Örn: burgers">
+                    <small>Sistem içi kullanım için benzersiz boşluksuz isim.</small>
+                </div>
+                <div class="form-group">
+                    <label for="category-icon">İkon (Phosphor Icons)</label>
+                    <input type="text" id="category-icon" placeholder="ph-hamburger">
+                    <small>Örn: ph-pizza, ph-coffee, ph-beer-bottle</small>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary close-modal">İptal</button>
+            <button class="btn btn-primary" id="save-category-btn">
+                <i class="ph ph-check"></i> Kaydet
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Printer Modal -->
+<div id="printer-modal" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Yazıcı Ekle/Düzenle</h3>
+            <button class="icon-btn close-modal"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="printer-form">
+                <input type="hidden" id="printer-id">
+                <div class="form-group">
+                    <label for="printer-name">Yazıcı Adı</label>
+                    <input type="text" id="printer-name" required placeholder="Örn: Mutfak Yazıcısı">
+                </div>
+                <div class="form-group">
+                    <label for="printer-type">Bağlantı Tipi</label>
+                    <select id="printer-type" class="form-select">
+                        <option value="network">Network (IP)</option>
+                        <option value="usb">USB</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="printer-connection">Bağlantı Adresi</label>
+                    <input type="text" id="printer-connection" required placeholder="Örn: 192.168.1.200:9100">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary close-modal">İptal</button>
+            <button class="btn btn-warning" id="test-printer-btn">Test Yazdır</button>
+            <button class="btn btn-primary" id="save-printer-btn">Kaydet</button>
+        </div>
+    </div>
+</div>
+
+<!-- Station Modal -->
+<div id="station-modal" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Reyon Ekle/Düzenle</h3>
+            <button class="icon-btn close-modal"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="station-form">
+                <input type="hidden" id="station-id">
+                <div class="form-group">
+                    <label for="station-name">Reyon Adı</label>
+                    <input type="text" id="station-name" required placeholder="Örn: Mutfak">
+                </div>
+                <div class="form-group">
+                    <label for="station-printer">Bağlı Yazıcı</label>
+                    <select id="station-printer" class="form-select">
+                        <option value="">-- Yazıcı Seçin --</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary close-modal">İptal</button>
+            <button class="btn btn-primary" id="save-station-btn">Kaydet</button>
+        </div>
+    </div>
+</div>

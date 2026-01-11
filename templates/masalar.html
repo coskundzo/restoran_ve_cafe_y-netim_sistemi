@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block page_title %}Masa Yönetimi{% endblock %}
+
+{% block page_content %}
+<div class="management-header" style="display: none;" id="admin-controls">
+    <button class="btn btn-primary" id="add-table-btn">
+        <i class="ph ph-plus"></i> Yeni Masa Ekle
+    </button>
+</div>
+<div class="tables-grid" id="tables-grid"></div>
+{% endblock %}

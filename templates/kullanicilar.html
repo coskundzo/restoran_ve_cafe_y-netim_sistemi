@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block page_title %}Kullanıcı Yönetimi{% endblock %}
+
+{% block page_content %}
+<div class="management-header">
+    <button class="btn btn-primary" id="add-user-btn">
+        <i class="ph ph-plus"></i> Yeni Kullanıcı
+    </button>
+</div>
+
+<table class="users-table" id="users-table"></table>
+{% endblock %}

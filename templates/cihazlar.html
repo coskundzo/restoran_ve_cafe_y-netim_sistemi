@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block page_title %}Cihazlar & Reyonlar{% endblock %}
+
+{% block page_content %}
+<div class="management-header">
+    <button class="btn btn-primary" id="add-printer-btn">
+        <i class="ph ph-printer"></i> Yeni Yazıcı
+    </button>
+    <button class="btn btn-secondary" id="add-station-btn" style="margin-left: 10px;">
+        <i class="ph ph-storefront"></i> Yeni Reyon
+    </button>
+</div>
+
+<div class="devices-grid" id="devices-content"></div>
+
+
+{% endblock %}

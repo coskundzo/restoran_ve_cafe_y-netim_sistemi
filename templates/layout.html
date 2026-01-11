@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="app">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="brand">
+            <i class="ph-fill ph-check-square-offset"></i>
+            <h1>Adisyo</h1>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="/masalar" class="nav-item" data-view="tables">
+                <i class="ph ph-squares-four"></i>
+                <span>Masalar</span>
+            </a>
+            <a href="/mutfak" class="nav-item" data-view="kitchen">
+                <i class="ph ph-cooking-pot"></i>
+                <span>Mutfak</span>
+            </a>
+            <a href="/raporlar" class="nav-item" data-view="reports">
+                <i class="ph ph-chart-line-up"></i>
+                <span>Raporlar</span>
+            </a>
+            <a href="/menu-yonetimi" class="nav-item admin-only" data-view="menu-management">
+                <i class="ph ph-fork-knife"></i>
+                <span>Menü Yönetimi</span>
+            </a>
+            <a href="/cihazlar" class="nav-item admin-only" data-view="devices">
+                <i class="ph ph-printer"></i>
+                <span>Cihazlar & Reyonlar</span>
+            </a>
+            <a href="/kullanicilar" class="nav-item admin-only" data-view="users">
+                <i class="ph ph-users"></i>
+                <span>Kullanıcılar</span>
+            </a>
+            <a href="/ayarlar" class="nav-item" data-view="settings">
+                <i class="ph ph-gear"></i>
+                <span>Ayarlar</span>
+            </a>
+        </nav>
+
+        <div class="user-profile" id="user-profile">
+            <img src="https://ui-avatars.com/api/?name=User&background=6366f1&color=fff" alt="User" id="user-avatar">
+            <div class="user-info">
+                <span class="name" id="user-name">Kullanıcı</span>
+                <span class="role" id="user-role">Rol</span>
+            </div>
+            <button class="icon-btn logout-btn" id="logout-btn" title="Çıkış">
+                <i class="ph ph-sign-out"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <header class="top-bar">
+            <h2 id="page-title">{% block page_title %}Masa Yönetimi{% endblock %}</h2>
+            <div class="actions">
+                <span id="current-time">12:00</span>
+                <span id="current-date">01.01.2024</span>
+            </div>
+        </header>
+
+        <div id="content-area" class="content-area">
+            {% block page_content %}{% endblock %}
+        </div>
+    </main>
+
+    {% include 'partials/modals.html' %}
+    
+    <div id="overlay" class="overlay"></div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast">
+    <i class="ph ph-check-circle"></i>
+    <span id="toast-message">İşlem başarılı</span>
+</div>
+{% endblock %}
